@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="css/my-portfolio-main-header.css">
     <script defer src="js/my-portfolio-main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- ScrollMagic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </head>
 <body>
     <header class="animate__animated animate__fadeInDown">
@@ -23,11 +32,14 @@
 
             <nav class="font-en">
                 <ul>
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#skill">SKILL</a></li>
-                    <li><a href="#project">PROJECT</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><span class="material-symbols-outlined">cloud</span>
+                        <a href="#about" class="header__text">ABOUT</a></li>
+                    <li><span class="material-symbols-outlined">cloud</span>
+                        <a href="#skill" class="header__text">SKILL</a></li>
+                    <li><span class="material-symbols-outlined">cloud</span>
+                        <a href="#project" class="header__text">PROJECT</a></li>
+                    <li><span class="material-symbols-outlined">cloud</span>
+                        <a href="#contact" class="header__text">CONTACT</a></li>
                 </ul>
             </nav>
         </div>
@@ -35,49 +47,39 @@
 
     <section class="visual animate__animated animate__fadeInUp">
         <div class="inner">
-            <h1 class="font-en">
-                <span class="animate-flash animate-shake nanum-font" style="animation-delay: 0.04s;">반</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.26s;">짝</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.08s;">반</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.02s;">짝</span>
-                &nbsp;
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.26s;">빛</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.06s;">나</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.14s;">는</span>
-                <br>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.06s;">F</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.28s;">u</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.12s;">l</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.15s;">l</span>
-                &nbsp;
-                <span class="animate-flash nanum-font" style="animation-delay: 0.02s;">S</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.22s;">t</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.17s;">a</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.19s;">c</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.20s;">k</span>
-                &nbsp;
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.18s;">e</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.11s;">D</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.05s;">v</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.06s;">e</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.09s;">l</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.24s;">o</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.28s;">p</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.14s;">e</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.25s;">r</span>
-                <br>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.16s;">재</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.24s;">현</span>
-                <span class="animate-flash purple nanum-font" style="animation-delay: 0.10s;">김</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.12s;">입</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.15s;">니</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.05s;">다</span>
-                <span class="animate-flash nanum-font" style="animation-delay: 0.13s;">.</span>
-            </h1>
+            <div class="visual__ani">
+                <h1 class="font-en">
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.06s;">B</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.28s;">a</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.12s;">c</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.15s;">k</span>
+                    &nbsp;
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.02s;">E</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.22s;">n</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.17s;">d</span>
+                    &nbsp;
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.11s;">D</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.05s;">v</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.06s;">e</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.09s;">l</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.24s;">o</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.28s;">p</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.14s;">e</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.25s;">r</span>
+                    <br>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.16s;">재</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.24s;">현</span>
+                    <span class="animate-flash purple nanum-font" style="animation-delay: 0.10s;">김</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.12s;">입</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.15s;">니</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.05s;">다</span>
+                    <span class="animate-flash nanum-font" style="animation-delay: 0.13s;">.</span>
+                </h1>
+            </div>
         </div>
     </section>
 
-    <section id="about" class="about my-element" >
+    <section id="about" class="about " >
         <div class="inner">
             <h2 class="title font-en">ABOUT</h2>
             <div class="about__wrapper">
@@ -98,6 +100,173 @@
                 </div>
             </div>
         </div>
+        
+        <div class="about__btn font-en">
+        <a href="#contact">
+            <img src="images/icon/icon_contact.png" alt="연락처">CONTACT
+        </a>
+        </div>
+    </div>
     </section>
+
+    <!-- SKILL -->
+    <section id="skill" class="skill scroll-spy">
+        <div class="inner">
+        <h2 class="title font-en">SKILL</h2>
+        <!-- 스킬 추가하려면 li 요소 복사 붙여넣기 -->
+        <ul class="skill__list">
+            <li>
+            <h3 class="font-en">Java</h3>
+            <h4 class="font-en">Java<br>Programing</h4>
+            <ul>
+                <li>객체지향</li>
+                <li>파일 입출력</li>
+                <li>JDBC</li>
+            </ul>
+            </li>
+            <li>
+            <h3 class="font-en">Html</h3>
+            <h4 class="font-en">HTML5</h4>
+            <ul>
+                <li>웹페이지 구조 설계</li>
+                <li>시맨틱 태그</li>
+            </ul>
+            </li>
+            <li>
+            <h3 class="font-en">Css</h3>
+            <h4 class="font-en">CSS3</h4>
+            <ul>
+                <li>웹페이지 레이아웃 설계</li>
+                <li>웹페이지 디자인</li>
+                <li>반응형 제작</li>
+            </ul>
+            </li>
+            <li>
+            <h3 class="font-en">Js</h3>
+            <h4 class="font-en">JavaScript</h4>
+            <ul>
+                <li>DOM 조작, 제어</li>
+                <li>이벤트 처리</li>
+                <li>비동기 통신</li>
+            </ul>
+            </li>
+            <li>
+            <h3 class="font-en">React</h3>
+            <h4 class="font-en">React JS</h4>
+            <ul>
+                <li>SPA 개발</li>
+                <li>전역 상태 관리</li>
+                <li>클라이언트 라우팅</li>
+                <li>CSR 방식 앱개발</li>
+            </ul>
+            </li>
+        </ul>
+        </div>
+    </section>
+
+    <section id="project" class="project font-en">
+        <div class="inner">
+        <h2 class="title">PROJECT</h2>
+
+            <div class="port">
+                <a href="javascript:void(0)" class="btn btn--brown">내용보기</a>
+                <div class="port__img front">
+                    <h3>프로젝트명</h3>
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/work_1.jpg" alt="산출물1">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/work_2.jpg" alt="산출물2">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+                <div class="port__text back">
+                    <ul>
+                        <li><span>주요 기능 : </span>주요 기능 설명</li>
+                        <li><span>적용 기술 : </span>HTML, CSS, JS, React, Java, Spring Boot</li>
+                        <li><span>GitHub : </span>깃허브 주소</li>
+                        <li><span>URL : </span>배포 주소</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="javascript:void(0)" class="btn btn-modal">README</a>
+                        <a href="javascript:void(0)" class="btn btn--brown btn-modal-image" data-image-src="images/work_1.jpg">이미지</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <section id="contact" class="contact font-en scroll-spy">
+        <div class="inner">
+        <h2 class="title">CONTACT</h2>
+        <div class="contact__info">
+            <ul>
+            <li>
+                <a href="https://github.com/geoblo" target="_blank">github.com/geoblo</a>
+            </li>
+            <li>010-1234-5678</li>
+            <li>geoblo@naver.com</li>
+            </ul>
+        </div>
+        <div class="contact__sns">
+            <ul>
+            <li>
+                <a href="#인스타그램주소" target="_blank">
+                <img src="images/icon/icon_insta.png" alt="인스타그램">
+                </a>
+            </li>
+            <li>
+                <a href="#유튜브주소" target="_blank">
+                <img src="images/icon/icon_youtube.png" alt="유튜브">
+                </a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="inner">
+        <p class="copyright">
+            &copy; <span class="this-year"></span>
+            <span class="font-en">Kin Jae Hyun. All Right Reserved.</span>
+        </p>
+        </div>
+    </footer>
+
+    <div id="modal">
+        <div class="modal-content">
+        <div class="modal-header">
+            README
+            <span class="material-symbols-outlined btn-close">close</span>
+        </div>
+        <div class="modal-body">
+            <p>여기에 모달 내용이 들어갑니다.</p>
+        </div>
+        </div>
+    </div>
+
+    <div id="imageModal">
+        <div class="modal-content">
+        <div class="modal-header">
+            이미지
+            <span class="material-symbols-outlined btn-close">close</span>
+        </div>
+        <div class="modal-body">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="이미지">
+        </div>
+        </div>
+    </div>
+
+    <div class="toTop">
+        <a href="#">
+        <span id="toTop" class="material-symbols-outlined">arrow_upward</span>
+        </a>
+    </div>
 </body>
 </html>
