@@ -28,8 +28,17 @@
   <!-- 그 외 fontawesome, bootstrap icon 등 -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <!-- main.css -->
   <link rel="stylesheet" href="css/main.css">
+
+  <!-- ScrollMagic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- main.js -->
   <script defer src="js/main.js"></script>
@@ -62,7 +71,7 @@
 
   <!-- VISUAL -->
   <!-- 첫 화면에 눈길을 끌 수 있는 자기를 소개하는 내용 담기 -->
-  <!-- <section class="visual">
+  <section class="visual">
     <div class="inner">
       <h1 class="font-en">
         <span class="animate-flash" style="animation-delay: 0.04s;">반</span>
@@ -104,7 +113,7 @@
           <span class="animate-flash" style="animation-delay: 0.13s;">.</span>
       </h1>
     </div>
-  </section> -->
+  </section>
 
   <!-- ABOUT -->
   <section id="about" class="about">
@@ -151,7 +160,7 @@
   </section>
 
   <!-- SKILL -->
-  <section id="skill" class="skill">
+  <section id="skill" class="skill scroll-spy">
     <div class="inner">
       <h2 class="title font-en">SKILL</h2>
       <!-- 스킬 추가하려면 li 요소 복사 붙여넣기 -->
@@ -204,5 +213,157 @@
       </ul>
     </div>
   </section>
+
+  <!-- PROJECT -->
+  <section id="project" class="project font-en">
+    <div class="inner">
+      <h2 class="title">PROJECT</h2>
+      <div class="port">
+        <div class="port__img">
+          <!-- 슬라이드 -->
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="images/work_1.jpg" alt="산출물1">
+              </div>
+              <div class="swiper-slide">
+                <img src="images/work_2.jpg" alt="산출물2">
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+        <div class="port__text">
+          <h3>프로젝트명</h3>
+          <ul>
+            <li><span>주요 기능 : </span>주요 기능 설명</li>
+            <li><span>적용 기술 : </span>HTML, CSS, JS, React, Java, Spring Boot</li>
+            <li><span>GitHub : </span>깃허브 주소</li>
+            <li><span>URL : </span>배포 주소</li>
+          </ul>
+          <div class="btn-group">
+            <a href="javascript:void(0)" class="btn btn-modal">README</a>
+            <a href="javascript:void(0)" class="btn btn--brown btn-modal-image" data-image-src="images/work_1.jpg">이미지</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="port">
+        <div class="port__img">
+          <!-- 슬라이드 -->
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="images/work_3.jpg" alt="산출물1">
+              </div>
+              <div class="swiper-slide">
+                <img src="images/work_4.jpg" alt="산출물2">
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+        <div class="port__text">
+          <h3>프로젝트명</h3>
+          <ul>
+            <li><span>주요 기능 : </span>주요 기능 설명</li>
+            <li><span>적용 기술 : </span>HTML, CSS, JS, React, Java, Spring Boot</li>
+            <li><span>GitHub : </span>깃허브 주소</li>
+            <li><span>URL : </span>배포 주소</li>
+          </ul>
+          <div class="btn-group">
+            <a href="javascript:void(0)" class="btn btn-modal">README</a>
+            <a href="javascript:void(0)" class="btn btn--brown btn-modal-image" data-image-src="images/work_3.jpg">이미지</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact font-en scroll-spy">
+    <div class="inner">
+      <h2 class="title">CONTACT</h2>
+      <div class="contact__info">
+        <ul>
+          <li>
+            <a href="https://github.com/geoblo" target="_blank">github.com/geoblo</a>
+          </li>
+          <li>010-1234-5678</li>
+          <li>geoblo@naver.com</li>
+        </ul>
+      </div>
+      <div class="contact__sns">
+        <ul>
+          <li>
+            <a href="#인스타그램주소" target="_blank">
+              <img src="images/icon/icon_insta.png" alt="인스타그램">
+            </a>
+          </li>
+          <li>
+            <a href="#유튜브주소" target="_blank">
+              <img src="images/icon/icon_youtube.png" alt="유튜브">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="inner">
+      <p class="copyright">
+        &copy; <span class="this-year"></span>
+        <span class="font-en">Kin Jae Hyun. All Right Reserved.</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <!-- 모달 배경 -->
+  <div id="modal">
+    <!-- 모달 내용 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        README
+        <span class="material-symbols-outlined btn-close">close</span>
+      </div>
+      <div class="modal-body">
+        <p>여기에 모달 내용이 들어갑니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE MODAL -->
+  <!-- 모달 배경 -->
+  <div id="imageModal">
+    <!-- 모달 내용 -->
+    <div class="modal-content">
+      <div class="modal-header">
+        이미지
+        <span class="material-symbols-outlined btn-close">close</span>
+      </div>
+      <div class="modal-body">
+        <!-- 1픽셀 투명한 GIF -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="이미지">
+      </div>
+    </div>
+  </div>
+
+  <!-- SCROLL TO TOP -->
+  <div class="toTop">
+    <a href="#">
+      <span id="toTop" class="material-symbols-outlined">arrow_upward</span>
+    </a>
+  </div>
 </body>
 </html>

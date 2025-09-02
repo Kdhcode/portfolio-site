@@ -2,6 +2,11 @@
 * {
   box-sizing: border-box;
 }
+/*  x축으로 넘치는 요소가 있을 때 스크롤이 생기지 않도록 방지 */
+/* 모바일 브라우저에서는 body보다 html을 기준으로 스크롤을 판단 */
+html, body {
+  overflow-x: hidden;
+}
 
 html {
   /* 스크롤 이동을 부드럽게 */
@@ -58,6 +63,47 @@ img {
   height: 2px;
   background-color: #333;
   margin: 24px auto 0;
+}
+
+/* 버튼과 같이 여러 곳에서 반복 사용되는 요소는 공통 스타일로 작업 */
+.btn {
+  display: block; /* a, span 같은 인라인 요소를 버튼으로 사용할 수 있으니 블록으로 지정 */
+  width: 120px; /* 버튼마다 크기가 같아야 하면 고정 길이, 아니면 그냥 패딩만 주기 */
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s;
+
+ /* (참고) 커서 모양 커스텀 가능 */
+  /* 핫스팟 위치(커서의 클릭 지점): 보통 이미지를 클릭할 위치가 커서의 왼쪽 위에 오도록 설정됨
+    예를 들어, 이미지 크기가 32px x 32px이라면 (16, 16)으로 설정하면 이미지의 중심이 클릭되는 부분이 됨 */
+  /* auto: 기본 커서 모양을 fallback으로 지정. 이미지가 로딩되지 않거나 설정이 안 되면 기본 커서가 사용됨 */
+  /* cursor: url("https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png") 58 58, auto; */
+  /* cursor: url("../images/byungari.png") 60 80, auto; */
+}
+.btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--purple {
+  color: #9b30ff;
+  border-color: #9b30ff;
+}
+.btn.btn--purple:hover {
+  color: #fff;
+  background-color: #9b30ff;
+}
+.btn.btn--brown {
+  color: #592b18;
+  border-color: #592b18;
+}
+.btn.btn--brown:hover {
+  color: #fff;
+  background-color: #592b18;
 }
 
 .animate-flash {
@@ -216,6 +262,36 @@ header nav ul li a:hover::after {
   gap: 30px;
   text-align: center;
 }
+/* 하위 선택자가 아닌 자식 선택자 쓴 것에 유의! */
+.skill .skill__list > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* 애니메이션 효과 추가 */
+  /* 방법1: position */
+  /* position: relative;
+  top: 100px; */
+  /* 방법2: transform */
+  transform: translateY(100px);
+
+  transition: 1s;
+  opacity: 0;
+}
+/* hover로 먼저 테스트 */
+/* .skill .skill__list > li:hover { */
+.skill.show .skill__list > li {
+  /* 방법1: position */
+  /* top: 0; */
+  /* 방법2: transform */
+  transform: translateY(0);
+  opacity: 1;
+}
+.skill .skill__list > li:nth-child(1) { transition-delay: 0.2s; }
+.skill .skill__list > li:nth-child(2) { transition-delay: 0.4s; }
+.skill .skill__list > li:nth-child(3) { transition-delay: 0.6s; }
+.skill .skill__list > li:nth-child(4) { transition-delay: 0.8s; }
+.skill .skill__list > li:nth-child(5) { transition-delay: 1s; }
 
 .skill .skill__list li h3 {
   width: 50px;
@@ -237,9 +313,195 @@ header nav ul li a:hover::after {
   margin: 30px 0 20px;
 }
 
+/* PROJECT */
+.project {
+  padding: 150px 0;
+}
+.project .port {
+  display: flex;
+  margin: 20px 0;
+}
+.project .port .port__img,
+.project .port .port__text {
+  width: 50%;
+  height: 400px;
+}
+.project .port .port__img .swiper {
+  width: 100%;
+  height: 100%;
+}
+.project .port .port__img .swiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* object-fit: cover; */
+}
+.project .port .port__text {
+  padding: 30px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.project .port .port__text h3 {
+  font-size: 20px;
+  font-weight: 800;
+}
+.project .port .port__text li {
+  line-height: 1.8;
+}
+.project .port .port__text li span {
+  font-weight: bold;
+}
+.project .port .btn-group {
+  display: flex;
+  /* column-gap: 40px; */
+}
+/* 또는 */
+.project .port .btn-group .btn:first-child {
+  margin-right: 40px;
+}
 
+/* CONTACT */
+.contact {
+  padding: 200px 0;
+}
+.contact .contact__info li {
+  line-height: 2;
+  text-align: center;
+  transition: 0.5s;
+}
+.contact .contact__info li:nth-child(1), 
+.contact .contact__info li:nth-child(3) {
+  /* 오른쪽에서 외쪽으로 나타나는 */
+  transform: translateX(150px);
+  opacity: 0;
+}
+.contact .contact__info li:nth-child(2) {
+  transform: translateX(-150px);
+  opacity: 0;
+}
+.contact.show .contact__info li {
+transform: translateX(0);
+opacity: 1;
+}
+.contact .contact__sns {
+  margin-top: 20px;
+}
+.contact .contact__sns ul {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+}
+.contact .contact__sns ul li {
+  transform: translateY(100px);
+  opacity: 0;
+  transition: 1s;
+}
+.contact.show .contact__sns ul li {
+  transform: translateY(0);
+  opacity: 1;
+}
+.contact.show .contact__sns ul li:nth-child(1) { transition-delay: 0s; }
+.contact.show .contact__sns ul li:nth-child(2) { transition-delay: 0.2s; }
+.contact .contact__sns ul li img {
+  width: 30px;
+}
+/* FOOTER */
+footer {
+  background-color: #000;
+  color: #fff;
+}
 
+footer .copyright {
+  text-align: center;
+  font-weight: 600;
+  line-height: 200px;
+}
 
+/* MODAL */
+#modal, #imageModal {
+  /* Quiz: 화면(뷰포트) 전체 영역 덮기 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+#modal.show {
+  display: flex;
+}
+#modal .modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  /* 고정 길이 */
+  /* width: 800px; */
+  /* 상대 길이 */
+  width: 60%;
+}
+#imageModal .modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+#modal .modal-header,
+#imageModal .modal-header {
+  padding: 16px;
+  background-color: #222;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#modal .modal-header .btn-close,
+#imageModal .modal-header .btn-close {
+  font-size: 30px;
+  cursor: pointer;
+}
+#modal .modal-header .btn-close:hover,
+#imageModal .modal-header .btn-close:hover {
+  color: #aaa;
+}
+#modal .modal-body,
+#imageModal .modal-body {
+  padding: 16px;
+}
+
+/* SCROLL TO TOP */
+#toTop {
+  width: 42px;
+  height: 42px;
+  background-color: #fff8e8;
+  border: 2px solid #333;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9;
+  transform: translateX(100px);
+  transition: 0.5s;
+  opacity: 0;
+}
+
+#toTop .material-symbols-outlined {
+  /* 수직 정렬 맞추기 */
+  /* display: block; */
+  /* 또는 글자 요소의 수직 정렬 */
+  line-height: 42px;
+}
 
 
 
