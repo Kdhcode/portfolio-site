@@ -134,14 +134,8 @@ window.addEventListener('scroll',function () {
 const sp = document.querySelector('.port > .btn');
 const portImg = document.querySelector('.port__img');
 const portText = document.querySelector('.port__text');
-let count = 0;
+
 sp.addEventListener('click',function () {
-    count++
-    if (count%2 === 1) {
-        portImg.classList.add('sp');
-        portText.classList.add('sp');
-    } else {
-        portImg.classList.remove('sp');
-        portText.classList.remove('sp');
-    }
+  portImg.classList.toggle('sp');
+  portText.classList.toggle('sp');
 });
