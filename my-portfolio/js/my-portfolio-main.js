@@ -89,7 +89,7 @@ const port = document.querySelectorAll('.port');
 window.addEventListener('scroll',function () {
     console.log(window.scrollY); 
     header.forEach(function (a) {
-        if (window.scrollY > 1890 && 2600 > window.scrollY) {
+        if (window.scrollY > 1500 && 2200 > window.scrollY) {
             a.style.color = '#fff';
             a.classList.add('shadow-wi');
         } else {
@@ -131,11 +131,30 @@ window.addEventListener('scroll',function () {
         });
     }
 });
-const sp = document.querySelector('.port > .btn');
-const portImg = document.querySelector('.port__img');
-const portText = document.querySelector('.port__text');
+const sps = document.querySelectorAll('.port > .btn');
+const portImgs = document.querySelectorAll('.port__img');
+const portTexts = document.querySelectorAll('.port__text');
 
-sp.addEventListener('click',function () {
-  portImg.classList.toggle('sp');
-  portText.classList.toggle('sp');
+
+
+for (let i = 0; i < sps.length; i++) {
+  sps[i].addEventListener('click',function () {
+      portImgs[i].classList.toggle('sp');
+      portTexts[i].classList.toggle('sp');
+  });
+}
+
+  // 모바일용 메뉴
+const hamburgerBtn = document.querySelector('.btn-hamburger');
+const navEl = document.querySelector('header nav');
+const aEls = document.querySelectorAll('header nav ul li a');
+
+hamburgerBtn.addEventListener('click', function () {
+  navEl.classList.toggle('active');
+});
+
+aEls.forEach(function (aEl) {
+  aEl.addEventListener('click', function () {
+    navEl.classList.remove('active');
+  });
 });
