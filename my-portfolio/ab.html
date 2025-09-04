@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        }
+        img {
+            display: block;
+        }
+
+
+
+        /* HEADER */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #c8c8c8;
+            box-shadow: 0 2px 8px rgba(204, 204, 204, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        header > .inner {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo img {
+            width: 40px;
+        }
+        header nav ul {
+            display: flex;
+        }
+        header nav ul li {
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+        header nav ul li a {
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <a href="ab.html" class="logo">
+                <img src="images/logo.png" alt="로고">
+            <nav class="font-en">
+                <ul>
+                    <li><a href="#about" class="header__text">ABOUT</a></li>
+                    <li><a href="#skill" class="header__text">SKILL</a></li>
+                    <li><a href="#project" class="header__text">PROJECT</a></li>
+                    <li><a href="#contact" class="header__text">CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="about">
+        <div class="inner">
+
+        </div>
+    </section>
+    <section id="skill">
+        <div class="inner">
+
+        </div>
+    </section>
+    <section id="project">
+        <div class="inner">
+
+        </div>
+    </section>
+    <section id="contact">
+        <div class="inner">
+
+        </div>
+    </section>
+</body>
+</html>

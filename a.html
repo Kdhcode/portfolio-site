@@ -29,22 +29,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/css/page-flip.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 
-
   <!-- Flipbook & 배경 스타일 -->
   <style>
     :root {
       --paper-radius: 14px;
-      --paper-shadow: 0 16px 45px rgba(0,0,0,.12);
-      --paper-border: 1px solid rgba(0,0,0,.06);
+      --paper-shadow: 0 16px 45px rgba(0, 0, 0, 0.295);
+      --paper-border: 3px solid rgb(94, 40, 10);
       --stage-radius: 18px;
     }
 
     body {
       font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
       background:
-        radial-gradient(1200px 600px at 20% -20%, rgba(108,92,231,.25), transparent 60%),
-        radial-gradient(1000px 500px at 100% 0%, rgba(0,175,245,.20), transparent 55%),
-        linear-gradient(180deg, #f6f7fb 0%, #eef1f7 100%);
+        radial-gradient(1200px 600px at 20% 10%, rgba(175, 101, 40, 0.664), transparent 60%),
+        radial-gradient(1000px 500px at 100% 0%, rgba(255, 196, 3, 0.411), transparent 55%),
+        linear-gradient(180deg, #ffa6006c 0%, #f6f7ee 100%);
       min-height: 100vh;
     }
 
@@ -62,10 +61,7 @@
       z-index: -1;
     }
 
-    .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .inner { max-width: 1100px; margin: 0 auto; }
 
     /* 책 무대(stage) */
     .flipbook-stage {
@@ -103,6 +99,7 @@
       position: relative;
       width: 100%;
       height: clamp(420px, 62vh, 620px);
+      overscroll-behavior: contain; /* ← 스크롤 체인 방지 (추가) */
     }
 
     /* 책 등(스파인) 효과 */
@@ -137,7 +134,6 @@
 
     /* 종이 질감 & 두께감 */
     .page-content::before {
-      /* 종이 질감 */
       content: "";
       position: absolute; inset: 0;
       background:
@@ -148,7 +144,6 @@
       pointer-events: none;
     }
     .page-content::after {
-      /* 가장자리 두께 그림자 */
       content: "";
       position: absolute; inset: 0;
       background:
@@ -160,11 +155,9 @@
       opacity: .25;
       pointer-events: none;
     }
-    h1{
-        font-size: 30px;
-        color: tomato;
-        text-align: center;
-    }
+
+    h1 { font-size: 30px; color: tomato; text-align: center; }
+
     .page-content img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
@@ -181,15 +174,16 @@
 <section id="project" class="project font-en">
   <div class="inner">
     <ul>
-                    <li><span class="material-symbols-outlined">cloud</span>
-                        <a href="#about" class="header__text">ABOUT</a></li>
-                    <li><span class="material-symbols-outlined">cloud</span>
-                        <a href="#skill" class="header__text">SKILL</a></li>
-                    <li><span class="material-symbols-outlined">cloud</span>
-                        <a href="#project" class="header__text">PROJECT</a></li>
-                    <li><span class="material-symbols-outlined">cloud</span>
-                        <a href="#contact" class="header__text">CONTACT</a></li>
-                </ul>
+      <li><span class="material-symbols-outlined">cloud</span>
+        <a href="#about" class="header__text">ABOUT</a></li>
+      <li><span class="material-symbols-outlined">cloud</span>
+        <a href="#skill" class="header__text">SKILL</a></li>
+      <li><span class="material-symbols-outlined">cloud</span>
+        <a href="#project" class="header__text">PROJECT</a></li>
+      <li><span class="material-symbols-outlined">cloud</span>
+        <a href="#contact" class="header__text">CONTACT</a></li>
+    </ul>
+
     <div class="flipbook-stage">
       <div class="flipbook-wrap">
         <div id="book-1" class="flip-book" aria-label="프로젝트 플립북">
@@ -207,10 +201,8 @@
           <div class="page"><div class="page-content">
             <h1 id="about">ABOUT</h1>
           </div></div>
-          <div class="page"><div class="page-content">
-          </div></div>
-          <div class="page"><div class="page-content">
-          </div></div>
+          <div class="page"><div class="page-content"></div></div>
+          <div class="page"><div class="page-content"></div></div>
           <div class="page"><div class="page-content">
             <img src="images/work_1.jpg" alt="내지 2" loading="lazy" decoding="async" />
           </div></div>
@@ -229,8 +221,6 @@
           <div class="page"><div class="page-content">
             <h1 id="contact">CONTACT</h1>
           </div></div>
-          
-          
 
           <!-- 뒷표지: 하드커버 -->
           <div class="page" data-density="hard">
@@ -249,47 +239,125 @@
 
   </div>
 </section>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Flipbook 초기화
     document.querySelectorAll('.flip-book').forEach((bookEl) => {
       const pf = new St.PageFlip(bookEl, {
-        width: 460,              // 기준 크기(비율)
+        width: 460,
         height: 620,
-        size: 'stretch',         // 컨테이너에 맞춰 반응형
-        showCover: true,         // 표지를 실제 커버처럼
+        size: 'stretch',
+        showCover: true,
         usePortrait: true,
-        maxShadowOpacity: 0.35,  // 그림자 살짝 강조(두께감)
+        maxShadowOpacity: 0.35,
         mobileScrollSupport: true,
         autoSize: true,
-        flippingTime: 2000       // 리얼한 속도감
+        flippingTime: 1000
       });
 
       pf.loadFromHTML(bookEl.querySelectorAll('.page'));
 
-      // Prev/Next 버튼
-      document.querySelectorAll(`[data-prev="#${bookEl.id}"]`)
-        .forEach(btn => btn.addEventListener('click', () => pf.flipPrev()));
-      document.querySelectorAll(`[data-next="#${bookEl.id}"]`)
-        .forEach(btn => btn.addEventListener('click', () => pf.flipNext()));
+      // 공통 플립 요청(버튼/클릭/키보드 등은 큐로 순차 처리)
+      let busy = false;
+      const queue = [];
+      const MAX_QUEUE = 8;
 
-      // 클릭으로 좌/우 넘김
+      const requestFlip = (dir) => {
+        const job = () => (dir === 'prev' ? pf.flipPrev() : pf.flipNext());
+        if (busy) {
+          if (queue.length >= MAX_QUEUE) queue.shift();
+          queue.push(job);
+          return;
+        }
+        busy = true;
+        job();
+      };
+
+      pf.on('changeState', (e) => {
+        if (e.data === 'read') {
+          const next = queue.shift();
+          if (next) next();
+          else busy = false;
+        }
+      });
+
+      // 버튼
+      document.querySelectorAll(`[data-prev="#${bookEl.id}"]`)
+        .forEach(btn => btn.addEventListener('click', () => requestFlip('prev')));
+      document.querySelectorAll(`[data-next="#${bookEl.id}"]`)
+        .forEach(btn => btn.addEventListener('click', () => requestFlip('next')));
+
+      // 클릭(좌/우)
       bookEl.addEventListener('click', (e) => {
         const rect = bookEl.getBoundingClientRect();
         const x = e.clientX - rect.left;
-        if (x < rect.width / 2) pf.flipPrev(); else pf.flipNext();
+        requestFlip(x < rect.width / 2 ? 'prev' : 'next');
       });
 
-      // 키보드 탐색
+      // 키보드
       bookEl.tabIndex = 0;
       bookEl.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') pf.flipPrev();
-        if (e.key === 'ArrowRight') pf.flipNext();
+        if (e.key === 'ArrowLeft') requestFlip('prev');
+        if (e.key === 'ArrowRight') requestFlip('next');
       });
+
+      // ===== 휠/트랙패드 스크롤 → 한 장만 넘기기(과민 방지) =====
+      let wheelAccum = 0;
+      let wheelDir = 0;           // -1 / +1 / 0
+      let wheelTimer = null;
+      const WHEEL_THRESHOLD = 180; // 민감도(높을수록 덜 넘어감) 150~240 추천
+      const RESET_DELAY = 260;     // 제스처 끊김 판정(ms)
+
+      let lastFlipAt = 0;
+      const FLIP_COOLDOWN = 1200;  // 마지막 넘김 후 이 시간 동안 추가 넘김 무시(ms)
+                                   // flippingTime(2000) 기준 1000~1400 권장
+
+      // 휠로 요청할 때는 큐에 '쌓지 않고' 애니메이션 중이면 무시
+      const requestFlipWheel = (dir) => {
+        const now = Date.now();
+        if (busy) return;                        // 진행 중이면 무시
+        if (now - lastFlipAt < FLIP_COOLDOWN) return; // 쿨다운 중이면 무시
+        lastFlipAt = now;
+        requestFlip(dir);
+      };
+
+      const onWheel = (e) => {
+        // 수직 스크롤만 처리
+        if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+
+        // 플립북 영역 스크롤 소비
+        e.preventDefault();
+
+        // 방향 바뀌면 누적 초기화(의도치 않은 연속 넘김 방지)
+        const dir = Math.sign(e.deltaY) || 1;
+        if (dir !== wheelDir) {
+          wheelDir = dir;
+          wheelAccum = 0;
+        }
+
+        wheelAccum += e.deltaY;
+
+        // 임계치 넘을 때만 1장 넘김 + 누적 리셋
+        if (wheelAccum >= WHEEL_THRESHOLD) {
+          requestFlipWheel('next');
+          wheelAccum = 0;
+        } else if (wheelAccum <= -WHEEL_THRESHOLD) {
+          requestFlipWheel('prev');
+          wheelAccum = 0;
+        }
+
+        // 제스처 멈추면 누적/방향 초기화
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+          wheelAccum = 0;
+          wheelDir = 0;
+        }, RESET_DELAY);
+      };
+
+      bookEl.addEventListener('wheel', onWheel, { passive: false });
     });
   });
 </script>
+
 
 </body>
 </html>
