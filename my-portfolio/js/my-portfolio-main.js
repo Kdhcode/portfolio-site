@@ -1,161 +1,58 @@
+document.querySelector('.this-year').textContent = new Date().getFullYear();
 
-const spyEls = document.querySelectorAll('section.scroll-spy');
+    // Mobile Nav
+    const burger = document.querySelector('.btn-hamburger');
+    const nav = document.querySelector('header nav');
+    burger?.addEventListener('click', ()=> nav.classList.toggle('active'));
+    nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('active')));
 
+    // ToTop
+    const toTop = document.getElementById('toTop');
+    const onScroll = () => {
+      if (window.scrollY > 420) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-const controller = new ScrollMagic.Controller();
-
-spyEls.forEach(function (spyEl) {
-
-  new ScrollMagic.Scene({ 
-    triggerElement: spyEl, 
-    triggerHook: 0.5 
-  })
-  .setClassToggle(spyEl, 'show') 
-  .addTo(controller); 
-});
-
-
-const swiper = new Swiper('.project .swiper', {
-
-    direction: 'horizontal', 
-    loop: true,
-    autoplay: { 
-    delay: 1500 
-    },
-
-    pagination: {
-    el: '.project .swiper-pagination',
-    clickable: true // 사용자의 페이지네이션 요소 제어 가능 여부
-  },
-});
-
-const modal = document.querySelector('#modal');
-const modalBtn = document.querySelector('.project .btn-modal');
-const closeBtn = document.querySelector('#modal .btn-close');
-
-const imageModal = document.querySelector('#imageModal');
-const imageModalBtnList = document.querySelectorAll('.project .btn-modal-image');
-const imageCloseBtn = document.querySelector('#imageModal .btn-close');
-const imageEl = document.querySelector('#imageModal img');
-
-modalBtn.addEventListener('click', function () {
-  modal.style.display = 'flex';
-});
-closeBtn.addEventListener('click', function () {
-  modal.style.display = 'none';
-});
-
-imageModalBtnList.forEach(function (imageModalBtn) {
-  imageModalBtn.addEventListener('click', function () {
-    imageEl.src = imageModalBtn.dataset.imageSrc;
-    imageModal.style.display = 'flex';
-  });
-});
-imageCloseBtn.addEventListener('click', function () {
-  imageModal.style.display = 'none';
-});
-
-modal.addEventListener('click', function (e) { 
-  console.log(e.target); 
-  console.log(e.currentTarget); 
-  
-  if (e.target === e.currentTarget) { 
-    modal.style.display = 'none';
-  }
-});
-
-imageModal.addEventListener('click', function (e) {
-  if (e.target === e.currentTarget) { 
-    imageModal.style.display = 'none';
-  }
-});
-
-document.addEventListener('keydown',function (e) {
-  if (e.key === 'Escape') {
-    modal.style.display = 'none';
-    imageModal.style.display = 'none';
-  }
-});
-
-const thisYear = document.querySelector('.this-year');
-thisYear.textContent = new Date().getFullYear();
-
-const toTopEl = document.querySelector('#toTop');
-const visualSpanEls = document.querySelectorAll('.animate-flash');
-const header = document.querySelectorAll('.header__text');
-const headerMat = document.querySelectorAll('.material-symbols-outlined');
-const port = document.querySelectorAll('.port');
-
-window.addEventListener('scroll',function () {
-    console.log(window.scrollY); 
-    header.forEach(function (a) {
-        if (window.scrollY > 1500 && 2200 > window.scrollY) {
-            a.style.color = '#fff';
-            a.classList.add('shadow-wi');
-        } else {
-            a.style.color = '#000';
-            a.classList.remove('shadow-wi');
-        }
-    });
-
-    port.forEach(function (a) {
-        if (window.scrollY > 2600) {
-            a.style.transform = 'translateX(0)';
-            a.style.opacity = '1';
-        }else {
-            toTopEl.style.transform = 'translateX(100px)';
-            toTopEl.style.opacity = '0';
-        }
-    });
-
-    headerMat.forEach(function (a) {
-        if (window.scrollY > 1890 && 2600 > window.scrollY) {
-            a.classList.add('shadow-wi');
-        } else {
-            a.classList.remove('shadow-wi');
-        }
-    });
-    if (window.scrollY > 500) {
-        toTopEl.style.transform = 'translateX(0)';
-        toTopEl.style.opacity = '1';
-        
-        visualSpanEls.forEach(function (visualSpanEl) {
-        visualSpanEl.classList.remove('animate-flash');
+    // Project search (All only)
+    (function(){
+      const list = Array.from(document.querySelectorAll('#project .card'));
+      const input = document.getElementById('projectSearch');
+      function apply(){
+        const q = (input.value || '').toLowerCase().trim();
+        list.forEach(card=>{
+          const text = (card.dataset.tags || '') + ' ' + card.innerText;
+          const show = !q || text.toLowerCase().includes(q);
+          card.style.display = show ? '' : 'none';
         });
-    } else {
-        toTopEl.style.transform = 'translateX(100px)';
-        toTopEl.style.opacity = '0';
+      }
+      input?.addEventListener('input', ()=> { clearTimeout(input._t); input._t = setTimeout(apply, 120); });
+      apply();
+    })();
 
-        visualSpanEls.forEach(function (visualSpanEl) {
-        visualSpanEl.classList.add('animate-flash');
+    // README Modal
+    (function(){
+      const modal = document.getElementById('modal');
+      const body = modal.querySelector('.modal__body');
+      const close = modal.querySelector('.modal__close');
+
+      document.querySelectorAll('.btn-readme').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const sel = btn.getAttribute('data-readme');
+          const src = sel ? document.querySelector(sel) : null;
+          body.innerHTML = src ? src.innerHTML : '<p>README 내용을 준비 중입니다.</p>';
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden','false');
         });
-    }
-});
-const sps = document.querySelectorAll('.port > .btn');
-const portImgs = document.querySelectorAll('.port__img');
-const portTexts = document.querySelectorAll('.port__text');
+      });
 
-
-
-for (let i = 0; i < sps.length; i++) {
-  sps[i].addEventListener('click',function () {
-      portImgs[i].classList.toggle('sp');
-      portTexts[i].classList.toggle('sp');
-  });
-}
-
-  // 모바일용 메뉴
-const hamburgerBtn = document.querySelector('.btn-hamburger');
-const navEl = document.querySelector('header nav');
-const aEls = document.querySelectorAll('header nav ul li a');
-
-hamburgerBtn.addEventListener('click', function () {
-  navEl.classList.toggle('active');
-});
-
-aEls.forEach(function (aEl) {
-  aEl.addEventListener('click', function () {
-    navEl.classList.remove('active');
-  });
-});
-
+      const hide = ()=>{
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden','true');
+      };
+      close.addEventListener('click', hide);
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) hide(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') hide(); });
+    })();

@@ -1,1122 +1,667 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- 오픈 그래프 -->
-  <!-- 웹페이지가 소셜미디어(카카오톡, 슬랙, 페이스북 등)로 공유될 때 우선적으로 활용되는 정보 -->
-  <!-- 
-    type: 사이트 타입(website로 고정하면 됨)
-    site_name: 웹사이트 이름, 브랜드 네임을 쓰면 좋음(ex. Goni's Portfolio, Goni.dev, MyPortfolio)
-    title: 현재 페이지의 제목
-    description: 간단한 소개(검색, 공유 시 미리보기에서 사용)
-    image: 썸네일 이미지(가장 중요함!), 절대 경로로 작성하는 것을 권장(https://부터 시작), 권장 크기(1200x630px 정도)
-    url: 현재 사이트의 대표 URL
-  -->
-  <!-- 타이틀 변경 -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Goni | Full Stack Developer</title>
-
-  <!-- 파비콘 적용 -->
-  <!-- 파비콘(favicon.ico)은 프로젝트 폴더의 최상위(Root) 경로에 포함시키면 자동 적용
-    최상위 경로에 없거나, ico가 아닌 별도 파일을 가진 경우에는 <link>로 적용 -->
-  <link rel="icon" href="favicon.ico">
-  <!-- (참고) 파비콘 만들기: https://iconifier.net -->
-
-  <!-- reset.css 적용 -->
-  <!-- 스타일 초기화: 브라우저 별로 다른 기본스타일이 적용되는 것을 초기화 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-
-  <!-- 구글 웹폰트 연결 -->
-  <!-- 구글 웹폰트: 경량화된 오픈 라이선스 폰트, 한글을 지원하는지 확인 및 필요한 굵기 선택 후 연결 -->
+  <link rel="icon" href="favicon.ico" />
+  <!-- Reset -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" />
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
-  <!-- 구글 머티리얼 아이콘 연결 -->
-  <!-- 구글 머티리얼 아이콘: 구글에서 제공하는 머티리얼 스타일의 아이콘, 글자처럼 취급 가능한 장점 -->
-  <!-- 그 외 fontawesome, bootstrap icon 등 -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;800;900&family=Open+Sans:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-
-  <!-- ScrollMagic -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  
   <style>
-    /* COMMON */
-* {
-  box-sizing: border-box;
-}
-/*  x축으로 넘치는 요소가 있을 때 스크롤이 생기지 않도록 방지 */
-/* 모바일 브라우저에서는 body보다 html을 기준으로 스크롤을 판단 */
-html, body {
-  overflow-x: hidden;
-}
+    /* ===================== Pastel Tokens ===================== */
+    :root{
+      /* Base */
+      --bg: #f8fbff;                          /* 메인 배경 */
+      --ink: #273142;                          /* 본문 텍스트 */
+      --muted: #5f7392;                        /* 보조 텍스트 */
 
-html {
-  /* 스크롤 이동을 부드럽게 */
-  scroll-behavior: smooth;
-}
+      /* Pastel palette (블루 중심 + 라벤더/민트 포인트) */
+      --p50:#eef6ff;
+      --p100:#dff0ff;
+      --p200:#cbe6ff;
+      --p300:#b7ddff;
+      --p400:#a2d3ff;
+      --p500:#8cc9ff;      /* main */
+      --p600:#77b9f5;
+      --lav:#eee9ff;
+      --mint:#e6fff6;
+      --peach:#fff0f5;
 
-body {
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #333;
+      /* Surfaces */
+      --glass: rgba(255,255,255,.75);
+      --line: rgba(100,140,190,.18);
+      --radius: 18px;
+      --radius-sm: 14px;
+      --shadow-sm: 0 8px 24px rgba(60,100,160,.10);
+      --shadow-md: 0 14px 36px rgba(60,100,160,.14);
+    }
 
-  /* 고정된 헤더 테스트용 */
-  /* height: 3000px; */
-}
+    /* ===================== Base ===================== */
+    *{ box-sizing:border-box; }
+    html,body{ overflow-x:hidden; }
+    body{
+      font-family:"Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 100% -10%, #e9f4ff 0%, transparent 60%),
+        radial-gradient(1000px 600px at 0% 10%, #eefcff 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+      color:var(--ink);
+      letter-spacing:.1px;
+      padding-top:70px; /* 고정 헤더 공간 확보 */
+    }
+    .font-en{ font-family:"Open Sans", sans-serif; }
+    a{ color:inherit; text-decoration:none; }
+    .inner{ max-width:1140px; margin:0 auto; padding:0 18px; }
 
-/* 영문에만 적용할 폰트 */
-.font-en {
-  font-family: "Open Sans", sans-serif;
-}
+    /* 아주 옅은 텍스처 */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image:
+        radial-gradient(transparent 98%, rgba(140,170,220,.06) 100%),
+        linear-gradient(135deg, rgba(150,180,230,.06) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(150,180,230,.06) 25%, transparent 25%);
+      background-size: 12px 12px, 22px 22px, 22px 22px;
+      background-position: 0 0, 0 0, 11px 11px;
+    }
 
-a {
-  /* 밑줄 제거 */
-  text-decoration: none;
-  color: inherit;
-}
+    /* ===================== Header (fixed) ===================== */
+    header{
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.70));
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    header > .inner{ height:70px; display:flex; align-items:center; justify-content:space-between; }
+    .logo img{ width:38px; height:38px; display:block; filter: drop-shadow(0 2px 5px rgba(70,110,170,.15)); }
+    nav ul{ display:flex; gap:6px; }
+    nav a{
+      display:block; padding:10px 14px; border-radius:12px; font-weight:800; color:#36506f;
+      transition:.18s;
+    }
+    nav a:hover{ background:var(--glass); border:1px solid var(--line); }
+    .btn-hamburger{ display:none; }
+    .btn-hamburger .material-symbols-outlined{ font-size:30px; color:#36506f; }
 
-.inner {
-  /* 고정 길이=고정형 */
-  /* width: 1200px; */
-  /* 최대값만 제한=반응형 */
-  max-width: 1200px;
-  /* 가로 너비를 가진 블록 요소의 가운데 정렬 */
-  margin: 0 auto;
-}
+    /* ===================== Sections ===================== */
+    section{ padding:96px 0; position:relative; scroll-margin-top:84px; }
+    .title{
+      font-size:40px; font-weight:900; text-align:center; margin-bottom:10px;
+      background: linear-gradient(90deg, #6bb8ff, #a7d6ff 45%, #c8e7ff 70%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      letter-spacing:.2px;
+    }
+    .section-desc{ text-align:center; color:var(--muted); margin-bottom:28px; font-size:15px; }
 
-/* 이미지 block 처리를 공통 스타일로 적용 */
-img {
-  /* 이미지가 인라인 요소라서 발생하는 문자 기준선(Baseline) 아래의 공간을 제거하기 위해 */
-  display: block;
-}
+    .divider{ height:64px; overflow:hidden; pointer-events:none; margin-top:-30px; }
+    .divider svg{ width:100%; height:100%; display:block; }
 
-.title {
-  font-size: 50px;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 50px;
-}
-.title::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 2px;
-  background-color: #333;
-  margin: 24px auto 0;
-}
+    /* ===================== Hero ===================== */
+    .visual{ padding:86px 0 110px; }
+    .hero{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center;
+    }
+    .heading{
+      font-size: clamp(28px, 6.2vw, 64px);
+      font-weight:900; line-height:1.12; color:#29415e;
+      text-shadow: 0 8px 26px rgba(70,110,170,.14);
+    }
+    .sub{ margin-top:12px; color:#5b7aa3; font-weight:700; }
+    .cta{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
 
-/* 버튼과 같이 여러 곳에서 반복 사용되는 요소는 공통 스타일로 작업 */
-.btn {
-  display: block; /* a, span 같은 인라인 요소를 버튼으로 사용할 수 있으니 블록으로 지정 */
-  width: 100px; /* 버튼마다 크기가 같아야 하면 고정 길이, 아니면 그냥 패딩만 주기 */
-  padding: 3px;
-  border: 2px solid #333;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.5s;
+    .glass{
+      background: var(--glass);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:14px; border:1px solid var(--line);
+      background:linear-gradient(180deg, #ffffff, #f7fbff);
+      color:#2d415c; font-weight:800; transition:.18s;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn--primary{
+      background: linear-gradient(90deg, var(--p500), var(--p300));
+      color:#16304d; border-color: transparent;
+    }
+    .btn:hover{ transform: translateY(-1px); }
 
- /* (참고) 커서 모양 커스텀 가능 */
-  /* 핫스팟 위치(커서의 클릭 지점): 보통 이미지를 클릭할 위치가 커서의 왼쪽 위에 오도록 설정됨
-    예를 들어, 이미지 크기가 32px x 32px이라면 (16, 16)으로 설정하면 이미지의 중심이 클릭되는 부분이 됨 */
-  /* auto: 기본 커서 모양을 fallback으로 지정. 이미지가 로딩되지 않거나 설정이 안 되면 기본 커서가 사용됨 */
-  /* cursor: url("https://blog.kakaocdn.net/dn/BQXpN/btq3qNR67Lg/8tx8tGzkOcr5BuX5dyIaKk/img.png") 58 58, auto; */
-  /* cursor: url("../images/byungari.png") 60 80, auto; */
-}
-.btn:hover {
-  background-color: #333;
-  color: #fff;
-}
-.btn.btn--purple {
-  color: #9b30ff;
-  border-color: #9b30ff;
-}
-.btn.btn--purple:hover {
-  color: #fff;
-  background-color: #9b30ff;
-}
-.btn.btn--brown {
-  color: #592b18;
-  border-color: #592b18;
-}
-.btn.btn--brown:hover {
-  color: #fff;
-  background-color: #592b18;
-}
+    .hero-card{ padding:16px; display:grid; grid-template-columns: 56px 1fr; gap:12px; align-items:center; }
+    .hero-card .ico{
+      width:56px; height:56px; border-radius:14px; display:grid; place-items:center;
+      background:#ffffff; border:1px solid var(--line);
+    }
+    .hero-card .ico .material-symbols-outlined{ font-size:30px; color:#4e78ad; }
+    .hero-card h3{ font-weight:900; color:#2a3f5b; }
+    .hero-card p{ color:#55739b; font-size:14px; }
 
-/* HEADER */
-header {
-  background-color: #fff;
-  border-bottom: 1px solid #c8c8c8;
-  box-shadow: 0 2px 8px rgba(204, 204, 204, 0.8);
+    /* ===================== About ===================== */
+    .about{ background:#f2f7ff; }
+    .about .wrap{ display:grid; grid-template-columns: 1fr 1.2fr; gap:28px; align-items:center; }
+    .about__photo{
+      border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow-sm);
+      background:#fff;
+    }
+    .about__photo img{ width:100%; display:block; filter: saturate(1.03) contrast(1.02); }
+    .about__text h3{ font-size:22px; font-weight:900; margin-bottom:6px; color:#2e4565; }
+    .about__text .slogan{ color:#4b79b5; font-weight:900; }
+    .about__text h4{ margin-top:14px; font-weight:800; color:#3e5e85; }
+    .about__text ul{ margin-top:6px; color:#4a6487; }
+    .about__text li + li{ margin-top:4px; }
 
-  /* 고정된 헤더 만들기 */
-  /* 부모 요소의 width 기준이 끊겨버리고, width를 지정하지 않으면 내용에 맞춰 최소한으로 축소됨 */
-  /* 보통 상단 고정 헤더를 만들 때 width: 100%;를 필수로 같이 씀 */
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-header > .inner {
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-header .logo img {
-  width: 40px;
-}
-header nav ul {
-  display: flex;
-}
-header nav ul li {
-  padding: 10px 20px;
-  font-weight: bold;
-}
-header nav ul li a {
-  position: relative;
-}
-header nav ul li a:hover {
-  color: #9b30ff;
-}
-/* 가상 요소의 장점은 HTML 구조 추가와 class 속성 값의 추가 없이 구현 및 제어 가능 */
-header nav ul li a::after {
-  content: ""; /* 필수 속성 */
-  display: block;
-  width: 0; /* 초기에는 밑줄이 안보이도록 0으로 설정 */
-  height: 2px;
-  background-color: #e0c4fa;
-  transition: width 0.5s;
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-}
-header nav ul li a:hover::after {
-  width: 100%; /* 호버 시 밑줄이 완전히 나타나도록 100%f로 설정 */
-}
+    /* ===================== Skills (콤팩트 모드) ===================== */
+    .skills{ background: linear-gradient(180deg, #f6faff 0%, #ffffff 100%); padding:56px 0; }
+    .skills .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    @media (max-width:820px){ .skills .grid{ grid-template-columns: 1fr; } .skills{ padding:44px 0; } }
 
-/* 햄버거 버튼 */
-header .btn-hamburger {
-  display: none;
-}
-header .btn-hamburger .material-symbols-outlined{
-  font-size: 40px;
-  display: block;
-  /* line-height: 60px; */
-}
+    .skill-card{
+      padding:12px; border-radius:var(--radius-sm); border:1px solid var(--line);
+      background:linear-gradient(180deg,#ffffff,#f9fcff);
+      box-shadow:var(--shadow-sm);
+    }
+    .skill-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .skill-title{ font-weight:900; color:#2e4565; display:flex; align-items:center; gap:8px; }
+    .skill-title .icon{
+      width:32px; height:32px; border-radius:10px; display:grid; place-items:center;
+      background:#fff; border:1px solid var(--line);
+    }
+    .skill-title .material-symbols-outlined{ color:#4d75a7; }
 
+    .meter{ height:8px; width:100%; border-radius:999px; overflow:hidden;
+      background:linear-gradient(180deg,#f2f7ff,#eaf3ff);
+      border:1px solid var(--line);
+    }
+    .meter > span{
+      display:block; height:100%; width:var(--val,70%);
+      background:linear-gradient(90deg, var(--p500), #cfe7ff);
+      transition:width .8s ease;
+    }
+    .chips{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+    .chip{
+      padding:4px 8px; border-radius:999px; font-weight:800; font-size:11px;
+      background:linear-gradient(180deg,#ffffff,#f7fbff); border:1px solid var(--line); color:#3e5e85;
+    }
+    .skill-desc{ margin-top:6px; color:#4a6487; font-size:13px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
-/* VISUAL */
-.visual {
-  /* (중요)
-    헤더가 fixed 되어 일반 배치 흐름에서 벗어남(주변 요소들과 상호작용하지 않음)
-    fixed 헤더 다음에 오는 섹션은 헤더의 높이만큼 외부 여백 추가 필요
-  */
-  margin-top: 60px;
-  width: 100%;
-  background-color: #000;
-  color: #fff;
-}
-.visual > .inner {
-  height: calc(100vh - 60px);
-  font-size: 70px;
-  display: flex;
-  align-items: center;
-}
-.visual > .inner .purple {
-  color: #9b30ff;
-}
+    /* ===================== Projects ===================== */
+    .project{ background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%); }
+    .project__controls{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
+    .only-all .chip{ cursor:default; }
+    .search{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:12px; background:#fff; }
+    .search input{ border:0; outline:none; min-width:220px; background:transparent; color:#2d415c; }
+    .search input::placeholder{ color:#7a96bd; }
 
-/* ABOUT */
-.about {
-  padding: 150px 0;
-}
-.about > .inner {
-  position: relative;
-}
-.about .about__wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-.about .about__wrapper .about__img {
-  width: 40%;
-}
-.about .about__wrapper .about__img img {
-  width: 100%;
-  border-radius: 50%;
-  box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.1);
-}
-.about .about__wrapper .about__text {
-  width: 40%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-.about .about__wrapper .about__text .slogan {
-  font-size: 35px;
-  font-weight: bold;
-}
-.about .about__wrapper .about__text h3 {
-  font-size: 20px;
-  font-weight: 600;
-}
-.about .about__wrapper .about__text h4 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.about .about__wrapper .about__text li {
-  line-height: 1.8;
-}
-.about .about__btn {
-  position: absolute;
-  right: 30px;
-  bottom: -30px;
-}
-/* .about .about__btn a {
-  display: flex;
-  align-items: center;
-} */
-/* flex를 쓰던가 아니면 아래와 같이 인라인 요소로 다시 원복하고 vertical-align 사용 */
-.about .about__btn img {
-  display: inline;
-  vertical-align: middle;
-  width: 28px;
-  margin-right: 10px;
-}
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    @media (max-width:1023px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width:639px){ .grid{ grid-template-columns: 1fr; } }
 
-/* SKILL */
-.skill {
-  padding: 150px 0;
-  background-color: #000;
-  color: #fff;
-}
-.skill .title::after {
-  background-color: #fff;
-}
-.skill .skill__list {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  gap: 30px;
-  text-align: center;
-}
-/* 하위 선택자가 아닌 자식 선택자 쓴 것에 유의! */
-.skill .skill__list > li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    .card{
+      position:relative; overflow:hidden; border-radius:var(--radius); border:1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f9fcff);
+      box-shadow: var(--shadow-sm);
+      transform: perspective(900px) rotateX(0) rotateY(0);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .card:hover{ transform: perspective(900px) rotateX(1.2deg) rotateY(-1.2deg) translateY(-1px); box-shadow: var(--shadow-md); }
+    .card .media{ aspect-ratio:16/9; background:#edf6ff; overflow:hidden; }
+    .card .media img{ width:110%; height:110%; object-fit:cover; transform: translate3d(0,0,0) scale(1); transition: transform .7s ease; }
+    .card:hover .media img{ transform: translate3d(0,-4px,0) scale(1.035); }
+    .card .body{ padding:14px 14px 16px; display:flex; flex-direction:column; gap:8px; }
+    .card h3{ font-weight:900; letter-spacing:.1px; color:#2e4565; }
+    .badges{ display:flex; gap:6px; flex-wrap:wrap; }
+    .badge{
+      background: linear-gradient(180deg, #ffffff, #f6fbff);
+      border:1px solid var(--line); color:#3e5e85; font-weight:800; font-size:12px; padding:4px 8px; border-radius:999px;
+    }
+    .meta{ color:#4a6487; font-size:14px; }
+    .meta strong{ font-weight:900; color:#2a3f5b; }
+    .actions{ display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .btn--ghost{ background: linear-gradient(180deg, #ffffff, #f7fbff); border:1px solid var(--line); }
 
-  /* 애니메이션 효과 추가 */
-  /* 방법1: position */
-  /* position: relative;
-  top: 100px; */
-  /* 방법2: transform */
-  transform: translateY(100px);
+    /* ===================== Contact / Footer ===================== */
+    .contact{ background: linear-gradient(180deg, #f6faff 0%, #f7fbff 100%); }
+    .contact .list{ text-align:center; color:#3f5c83; }
+    .contact .sns{ margin-top:14px; display:flex; gap:10px; justify-content:center; }
+    .contact .sns img{ width:28px; height:28px; filter: drop-shadow(0 2px 6px rgba(70,110,170,.15)); }
 
-  transition: 1s;
-  opacity: 0;
-}
-/* hover로 먼저 테스트 */
-/* .skill .skill__list > li:hover { */
-.skill.show .skill__list > li {
-  /* 방법1: position */
-  /* top: 0; */
-  /* 방법2: transform */
-  transform: translateY(0);
-  opacity: 1;
-}
-.skill .skill__list > li:nth-child(1) { transition-delay: 0.2s; }
-.skill .skill__list > li:nth-child(2) { transition-delay: 0.4s; }
-.skill .skill__list > li:nth-child(3) { transition-delay: 0.6s; }
-.skill .skill__list > li:nth-child(4) { transition-delay: 0.8s; }
-.skill .skill__list > li:nth-child(5) { transition-delay: 1s; }
+    footer{ background:#f0f6ff; color:#516f9a; border-top:1px solid var(--line); }
+    footer .copyright{ text-align:center; padding:22px 0; font-weight:800; }
 
-.skill .skill__list li h3 {
-  width: 50px;
-  height: 40px;
-  background-color: #9b30ff;
-  border-radius: 50%;
-  font-size: 30px;
-  font-weight: bold;
-  letter-spacing: -2px;
-  transform: rotate(-20deg);
-  transition: 0.5s;
-}
-.skill .skill__list li:hover h3 {
-  transform: rotate(0deg);
-}
-.skill .skill__list li h4 {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 30px 0 20px;
-}
+    /* ===================== Modal ===================== */
+    #modal{
+      position:fixed; inset:0; display:none; place-items:center; background:rgba(161,188,230,.22); z-index:60;
+      backdrop-filter: blur(3px);
+    }
+    #modal.show{ display:grid; }
+    .modal__panel{
+      width:min(820px,92%); border-radius:16px; overflow:hidden; border:1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f7fbff);
+      box-shadow:var(--shadow-md); color:#2a3f5b;
+    }
+    .modal__head{
+      display:flex; justify-content:space-between; align-items:center; padding:12px 14px;
+      background: linear-gradient(90deg, var(--p400), var(--p300));
+      border-bottom:1px solid var(--line);
+    }
+    .modal__body{ padding:16px; }
+    .modal__close{ cursor:pointer; }
 
-/* PROJECT */
-.project {
-  padding: 150px 0;
-  display: flex;
+    /* ===================== ToTop ===================== */
+    #toTop{
+      position:fixed; right:18px; bottom:18px; width:46px; height:46px; display:grid; place-items:center;
+      background: linear-gradient(180deg, #ffffff, #f7fbff);
+      border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-sm);
+      opacity:0; transform: translateY(8px); transition:.22s; color:#3b5b84;
+    }
+    #toTop.show{ opacity:1; transform:none; }
 
-}
-.project .port {
-  display: flex;
-  margin: 20px 0;
-}
-.project .port .port__img,
-.project .port .port__text {
-  width: 30%;
-  height: 300px;
-}
-.project .port .port__img {
-    /* position: absolute; */
-}
-
-.project .port .port__img .swiper {
-  width: 100%;
-  height: 100%;
-}
-.project .port .port__img .swiper img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  /* object-fit: cover; */
-}
-.project .port .port__text {
-  padding: 10px;
-  font-size: 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-.project .port .port__text h3 {
-  font-size: 20px;
-  font-weight: 800;
-}
-.project .port .port__text li {
-  line-height: 1.8;
-}
-.project .port .port__text li span {
-  font-weight: bold;
-}
-.project .port .btn-group {
-  display: flex;
-  /* column-gap: 40px; */
-}
-/* 또는 */
-.project .port .btn-group .btn:first-child {
-  margin-right: 40px;
-}
-
-/* CONTACT */
-.contact {
-  padding: 200px 0;
-}
-.contact .contact__info li {
-  line-height: 2;
-  text-align: center;
-  transition: 0.5s;
-}
-.contact .contact__info li:nth-child(1), 
-.contact .contact__info li:nth-child(3) {
-  /* 오른쪽에서 외쪽으로 나타나는 */
-  transform: translateX(150px);
-  opacity: 0;
-}
-.contact .contact__info li:nth-child(2) {
-  transform: translateX(-150px);
-  opacity: 0;
-}
-.contact.show .contact__info li {
-transform: translateX(0);
-opacity: 1;
-}
-.contact .contact__sns {
-  margin-top: 20px;
-}
-.contact .contact__sns ul {
-  display: flex;
-  justify-content: center;
-  column-gap: 10px;
-}
-.contact .contact__sns ul li {
-  transform: translateY(100px);
-  opacity: 0;
-  transition: 1s;
-}
-.contact.show .contact__sns ul li {
-  transform: translateY(0);
-  opacity: 1;
-}
-.contact.show .contact__sns ul li:nth-child(1) { transition-delay: 0s; }
-.contact.show .contact__sns ul li:nth-child(2) { transition-delay: 0.2s; }
-.contact .contact__sns ul li img {
-  width: 30px;
-}
-/* FOOTER */
-footer {
-  background-color: #000;
-  color: #fff;
-}
-
-footer .copyright {
-  text-align: center;
-  font-weight: 600;
-  line-height: 200px;
-}
-
-/* MODAL */
-#modal, #imageModal {
-  /* Quiz: 화면(뷰포트) 전체 영역 덮기 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99;
-
-  /* display: flex; */
-  justify-content: center;
-  align-items: center;
-  display: none;
-}
-#modal.show {
-  display: flex;
-}
-#modal .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  /* 고정 길이 */
-  /* width: 800px; */
-  /* 상대 길이 */
-  width: 60%;
-}
-#imageModal .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-}
-
-#modal .modal-header,
-#imageModal .modal-header {
-  padding: 16px;
-  background-color: #222;
-  color: #fff;
-  border-radius: 8px 8px 0 0;
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#modal .modal-header .btn-close,
-#imageModal .modal-header .btn-close {
-  font-size: 30px;
-  cursor: pointer;
-}
-#modal .modal-header .btn-close:hover,
-#imageModal .modal-header .btn-close:hover {
-  color: #aaa;
-}
-#modal .modal-body,
-#imageModal .modal-body {
-  padding: 16px;
-}
-
-/* SCROLL TO TOP */
-#toTop {
-  width: 42px;
-  height: 42px;
-  background-color: #fff8e8;
-  border: 2px solid #333;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9;
-  transform: translateX(100px);
-  transition: 0.5s;
-  opacity: 0;
-}
-
-#toTop .material-symbols-outlined {
-  /* 수직 정렬 맞추기 */
-  /* display: block; */
-  /* 또는 글자 요소의 수직 정렬 */
-  line-height: 42px;
-}
-
-/* 반응형 스타일 */
-@media screen and (max-width : 767px) {
-  /* 모바일에서는 화면의 80%만 차지하도록 */
-  .inner {
-    width: 80%;
-  }
-
-  .title {
-    font-size: 30px;
-    margin-bottom: 24px;
-  }
-
-  .title::after {
-    width: 60px;
-  }
-
-  header .btn-hamburger {
-    display: block;
-  }
-
-  header nav {
-    background-color: #fff8e8;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    /* height: 100%; */
-    height: 0;
-    overflow: hidden;
-    transition: 0.5s;
-  }
-  header nav.active {
-    height: 100%;
-  }
-  header nav ul {
-    /* 1) ul 태그를 원래 보여짐 특성인 블록으로 원복 또는 flex 방향 바꾸기 */
-    /* display: block; */
-    flex-direction: column;
-    padding-top: 60px;
-  }
-  header nav ul li {
-    padding: 10px 80px;
-    font-size: 30px;
-  }
-  header nav ul li a {
-    transition: 0.5s;
-  }
-  header nav ul li a:hover {
-    letter-spacing: 10px;
-  }
-
-  .visual >.inner {
-    font-size: 30px;
-  }
-  .visual >.inner .mobile-lf {
-    display: inline !important;
-  }
-
-  .about {
-    padding: 100px 0;
-  }
-  .about .about__wrapper {
-    flex-direction: column;
-  }
-
-  .about .about__wrapper .about__img {
-    width: 80%;
-    margin: 0 auto;
-  }
-  .about .about__wrapper .about__text {
-    width: 100%;
-    text-align: center;
-  }
-
-  .skill {
-    padding: 100px 0;
-  }
-
-  .project {
-    padding: 100px 0;
-  }
-  .project .port {
-    flex-direction: column;
-    margin: 40px 0;
-  }
-  .project .port .port__img,
-  .project .port .port__text{
-    width: 100%;
-  }
-  .project .port .port__text{
-    padding: 20px 0 0;
-    text-align: center;
-  }
-  .project .port .btn-group{
-    margin: 20px auto;
-  }
-
-  .contact {
-    padding: 100px 0;
-  }
-  
-  #modal .modal-content,
-  #imageModal .modal-content {
-    width: 80%;
-  }
-  #imageModal .modal-body img {
-    width: 100%;
-  }
-}
-
-
-/* 애니메이션 정의는 맨 마지막에 */
-@keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-
-  25%, 75% {
-    opacity: 0;
-  }
-}
-
+    /* ===================== Responsive Nav ===================== */
+    @media (max-width:860px){
+      .visual{ padding-top:72px; }
+      .hero{ grid-template-columns: 1fr; }
+      .btn-hamburger{ display:block; }
+      header nav{
+        position:fixed; inset:70px 0 auto 0; height:0; overflow:hidden;
+        background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.88));
+        border-top:1px solid var(--line); transition:.22s;
+      }
+      header nav.active{ height:230px; }
+      header nav ul{ flex-direction:column; padding:10px 12px; }
+    }
   </style>
 </head>
 <body>
-  <!-- 폰트 테스트 -->
-  <!-- <span>헬로 월드!</span>
-  <span class="font-en">Hello world!</span> -->
-
-  <!-- HEADER -->
+  <!-- ===================== Header ===================== -->
   <header>
     <div class="inner">
-      <!-- 로고 -->
-      <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="로고">
+      <a href="#" class="logo" aria-label="홈으로">
+        <img src="images/logo.png" alt="로고" />
       </a>
-
-      <!-- 메뉴 -->
-      <nav class="font-en">
+      <nav class="font-en" aria-label="Primary">
         <ul>
-          <!-- 본인 메뉴 구조에 맞게 변경 -->
           <li><a href="#about">ABOUT</a></li>
           <li><a href="#skill">SKILL</a></li>
           <li><a href="#project">PROJECT</a></li>
           <li><a href="#contact">CONTACT</a></li>
         </ul>
       </nav>
-      
-      <!-- 햄버거 버튼 -->
-      <a href="javascript:void(0)" class="btn-hamburger">
+      <a href="javascript:void(0)" class="btn-hamburger" aria-label="Open menu">
         <span class="material-symbols-outlined">menu</span>
-
       </a>
     </div>
   </header>
 
-  <!-- ABOUT -->
+  <!-- ===================== Hero ===================== -->
+  <section class="visual">
+    <div class="inner hero">
+      <div>
+        <h1 class="heading font-en">
+          Goni — <span style="color:#4a7db3">Full-Stack</span> Developer
+        </h1>
+        <p class="sub">React · Java · Spring · AWS</p>
+        <div class="cta">
+          <a class="btn btn--primary" href="#project">
+            <span class="material-symbols-outlined">rocket_launch</span>View Projects
+          </a>
+          <a class="btn" href="#contact">
+            <span class="material-symbols-outlined">mail</span>Contact
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card glass" aria-label="워크 철학">
+        <div class="ico"><span class="material-symbols-outlined">verified</span></div>
+        <div>
+          <h3 class="font-en">Problem → Hypothesis → Ship</h3>
+          <p>과장보다 결과. 문제를 명확히 정의하고 필요한 만큼 빠르게 검증합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="#f2f7ff" d="M0,32 C240,72 480,0 720,16 C960,32 1200,80 1440,24 L1440,0 L0,0 Z"/></svg>
+  </div>
+
+  <!-- ===================== About ===================== -->
   <section id="about" class="about">
     <div class="inner">
       <h2 class="title font-en">ABOUT</h2>
-      <div class="about__wrapper">
-        <div class="about__img">
-          <!-- 본인 프로필 이미지 넣기 -->
-          <img src="images/profile.jpg" alt="프로필">
-        </div>
+      <p class="section-desc">불필요한 복잡함을 비우고, 사용자 문제를 중심으로 설계합니다.</p>
+
+      <div class="wrap">
+        <div class="about__photo"><img src="images/profile.jpg" alt="프로필" /></div>
         <div class="about__text">
-          <!-- 본인 슬로건, 이름(생년월일), 학력 또는 교육 사항 등 작성 -->
-          <strong class="slogan font-en">Simple is Best</strong>
-          <!-- (참고) 단순한 굵은 글씨가 아니라 "중요한 의미를 갖는 텍스트" 를 강조할 때 사용
-            즉, 요즘은 단순히 시각적으로 강조하려면 <b>보다 CSS를 쓰는 게 일반적이고,
-            의미상 강조(semantic)가 필요할 땐 <strong>을 쓰는 게 표준
-
-            <strong>은 다음과 같은 경우에 적극 사용
-            - 경고 문구, 중요 알림
-            - 텍스트 콘텐츠 내에서 핵심 단어 강조
-            - 스크린 리더를 위한 의미 전달
-
-            스크린 리더에서의 차이
-            <strong>은 스크린 리더에서 강조해서 읽힘(강조 톤)
-            <b>는 그런 의미 전달 없음 -->
+          <div class="slogan font-en">Simple is Best</div>
           <h3 class="font-en">Kim dong Hyun (2001.01.04)</h3>
-          <div>
-            <h4 class="font-en">EDUCATION</h4>
-            <ul>
-              <li>20.03 ~ 26.02 한라대학교 IT 소프트웨어학과 졸업</li>
-              <li>25.07 ~ 26.01 클라우드(AWS)활용 자바/스프링 개발 부트캠프 수료</li>
-            </ul>
+          <h4 class="font-en">EDUCATION</h4>
+          <ul>
+            <li>20.03 ~ 26.02 한라대학교 IT 소프트웨어학과 졸업</li>
+            <li>25.07 ~ 26.01 클라우드(AWS)활용 자바/스프링 개발 부트캠프 수료</li>
+          </ul>
+          <div style="margin-top:16px;">
+            <a href="#contact" class="btn"><span class="material-symbols-outlined">call</span>CONTACT</a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 연락처 버튼 -->
-      <div class="about__btn font-en">
-        <a href="#contact">
-          <img src="images/icon/icon_contact.png" alt="연락처">CONTACT
-        </a>
+  <div class="divider" style="transform:scaleY(-1); margin-top:-1px;">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="#f2f7ff" d="M0,32 C240,72 480,0 720,16 C960,32 1200,80 1440,24 L1440,64 L0,64 Z"/></svg>
+  </div>
+
+  <!-- ===================== Skills ===================== -->
+  <section id="skill" class="skills">
+    <div class="inner">
+      <h2 class="title font-en">SKILL</h2>
+      <p class="section-desc">불필요한 장식 대신, 숙련도와 강점을 바로 읽히도록.</p>
+
+      <div class="grid">
+        <!-- Java -->
+        <article class="skill-card">
+          <div class="skill-head">
+            <div class="skill-title">
+              <div class="icon"><span class="material-symbols-outlined">coffee</span></div>
+              <div>
+                <div class="font-en" style="font-weight:900">Java</div>
+                <div class="muted">OOP · I/O · JDBC</div>
+              </div>
+            </div>
+            <div style="min-width:120px"><div class="meter" title="숙련도 85%"><span style="--val:85%"></span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">Collections</span><span class="chip">Streams</span><span class="chip">HikariCP</span>
+          </div>
+          <p class="skill-desc">객체지향, 예외/리소스 처리, JDBC 튜닝 기본기.</p>
+        </article>
+
+        <!-- HTML5 -->
+        <article class="skill-card">
+          <div class="skill-head">
+            <div class="skill-title">
+              <div class="icon"><span class="material-symbols-outlined">html</span></div>
+              <div>
+                <div class="font-en" style="font-weight:900">HTML5</div>
+                <div class="muted">Semantic · SEO</div>
+              </div>
+            </div>
+            <div style="min-width:120px"><div class="meter" title="숙련도 90%"><span style="--val:90%"></span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">Semantic</span><span class="chip">OG/Meta</span><span class="chip">A11y</span>
+          </div>
+          <p class="skill-desc">접근성/시맨틱 마크업과 미리보기 메타 최적화.</p>
+        </article>
+
+        <!-- CSS3 -->
+        <article class="skill-card">
+          <div class="skill-head">
+            <div class="skill-title">
+              <div class="icon"><span class="material-symbols-outlined">stylus_note</span></div>
+              <div>
+                <div class="font-en" style="font-weight:900">CSS3</div>
+                <div class="muted">Responsive · UI</div>
+              </div>
+            </div>
+            <div style="min-width:120px"><div class="meter" title="숙련도 88%"><span style="--val:88%"></span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">Grid/Flex</span><span class="chip">Transitions</span><span class="chip">Dark/Light</span>
+          </div>
+          <p class="skill-desc">그리드/플렉스, 상태 인터랙션, 반응형 스케일링.</p>
+        </article>
+
+        <!-- JavaScript -->
+        <article class="skill-card">
+          <div class="skill-head">
+            <div class="skill-title">
+              <div class="icon"><span class="material-symbols-outlined">javascript</span></div>
+              <div>
+                <div class="font-en" style="font-weight:900">JavaScript</div>
+                <div class="muted">DOM · Async</div>
+              </div>
+            </div>
+            <div style="min-width:120px"><div class="meter" title="숙련도 82%"><span style="--val:82%"></span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">Events</span><span class="chip">Fetch</span><span class="chip">Promise</span>
+          </div>
+          <p class="skill-desc">DOM/이벤트, 비동기 흐름 제어, 에러 핸들링.</p>
+        </article>
+
+        <!-- React -->
+        <article class="skill-card">
+          <div class="skill-head">
+            <div class="skill-title">
+              <div class="icon"><span class="material-symbols-outlined">developer_board</span></div>
+              <div>
+                <div class="font-en" style="font-weight:900">React</div>
+                <div class="muted">SPA · State</div>
+              </div>
+            </div>
+            <div style="min-width:120px"><div class="meter" title="숙련도 80%"><span style="--val:80%"></span></div></div>
+          </div>
+          <div class="chips">
+            <span class="chip">Routing</span><span class="chip">Zustand</span><span class="chip">Hooks</span>
+          </div>
+          <p class="skill-desc">SPA 설계, 전역 상태, 컴포넌트 아키텍처.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- SKILL -->
-  <section id="skill" class="skill scroll-spy">
-    <div class="inner">
-      <h2 class="title font-en">SKILL</h2>
-      <!-- 스킬 추가하려면 li 요소 복사 붙여넣기 -->
-      <ul class="skill__list">
-        <li>
-          <h3 class="font-en">Java</h3>
-          <h4 class="font-en">Java<br>Programing</h4>
-          <ul>
-            <li>객체지향</li>
-            <li>파일 입출력</li>
-            <li>JDBC</li>
-          </ul>
-        </li>
-        <li>
-          <h3 class="font-en">Html</h3>
-          <h4 class="font-en">HTML5</h4>
-          <ul>
-            <li>웹페이지 구조 설계</li>
-            <li>시맨틱 태그</li>
-          </ul>
-        </li>
-        <li>
-          <h3 class="font-en">Css</h3>
-          <h4 class="font-en">CSS3</h4>
-          <ul>
-            <li>웹페이지 레이아웃 설계</li>
-            <li>웹페이지 디자인</li>
-            <li>반응형 제작</li>
-          </ul>
-        </li>
-        <li>
-          <h3 class="font-en">Js</h3>
-          <h4 class="font-en">JavaScript</h4>
-          <ul>
-            <li>DOM 조작, 제어</li>
-            <li>이벤트 처리</li>
-            <li>비동기 통신</li>
-          </ul>
-        </li>
-        <li>
-          <h3 class="font-en">React</h3>
-          <h4 class="font-en">React JS</h4>
-          <ul>
-            <li>SPA 개발</li>
-            <li>전역 상태 관리</li>
-            <li>클라이언트 라우팅</li>
-            <li>CSR 방식 앱개발</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PROJECT -->
+  <!-- ===================== Projects ===================== -->
   <section id="project" class="project font-en">
     <div class="inner">
       <h2 class="title">PROJECT</h2>
-      <div class="port">
-        <div class="port__img">
-          <!-- 슬라이드 -->
-          <div class="swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="images/work_1.jpg" alt="산출물1">
-              </div>
-              <div class="swiper-slide">
-                <img src="images/work_2.jpg" alt="산출물2">
-              </div>
-            </div>
+      <p class="section-desc">필터는 All만, 대신 검색으로 빠르게 찾기.</p>
 
-            <div class="swiper-pagination"></div>
-
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-        </div>
-        <div class="port__text">
-          <h3>프로젝트명</h3>
-          <ul>
-            <li><span>주요 기능 : </span>주요 기능 설명</li>
-            <li><span>적용 기술 : </span>HTML, CSS, JS, React, Java, Spring Boot</li>
-            <li><span>GitHub : </span>깃허브 주소</li>
-            <li><span>URL : </span>배포 주소</li>
-          </ul>
-          <div class="btn-group">
-            <a href="javascript:void(0)" class="btn btn-modal">README</a>
-            <a href="javascript:void(0)" class="btn btn--brown btn-modal-image" data-image-src="images/work_1.jpg">이미지</a>
-          </div>
-        </div>
+      <div class="project__controls only-all">
+        <div><button class="chip" disabled>All</button></div>
+        <label class="search" aria-label="Search projects">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span>
+          <input id="projectSearch" type="search" placeholder="Search by name, feature or tech…" />
+        </label>
       </div>
 
-      <div class="port">
-        <div class="port__img">
-          <!-- 슬라이드 -->
-          <div class="swiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="images/work_3.jpg" alt="산출물1">
-              </div>
-              <div class="swiper-slide">
-                <img src="images/work_4.jpg" alt="산출물2">
-              </div>
+      <ul class="grid" aria-live="polite">
+        <!-- A -->
+        <li class="card" data-tags="fullstack,react,spring,aws,oauth,검색,스크롤">
+          <div class="media"><img src="images/work_1.jpg" alt="Project A 화면" loading="lazy" /></div>
+          <div class="body">
+            <h3>Project A</h3>
+            <div class="badges"><span class="badge">React</span><span class="badge">Spring Boot</span><span class="badge">AWS</span></div>
+            <p class="meta"><strong>기능</strong> OAuth 로그인, 검색/필터, 무한 스크롤<br/>
+              <strong>기술</strong> React, Vite, Zustand, Spring Boot, JPA, S3, RDS
+            </p>
+            <div class="actions">
+              <a class="btn btn--primary btn-readme" href="javascript:void(0)" data-readme="#readme-a">
+                <span class="material-symbols-outlined">article</span>README
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/geoblo" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">hub</span>GitHub
+              </a>
+              <a class="btn btn--ghost" href="#" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">open_in_new</span>Live
+              </a>
             </div>
-
-            <div class="swiper-pagination"></div>
-
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
           </div>
-        </div>
-        <div class="port__text">
-          <h3>프로젝트명</h3>
-          <ul>
-            <li><span>주요 기능 : </span>주요 기능 설명</li>
-            <li><span>적용 기술 : </span>HTML, CSS, JS, React, Java, Spring Boot</li>
-            <li><span>GitHub : </span>깃허브 주소</li>
-            <li><span>URL : </span>배포 주소</li>
-          </ul>
-          <div class="btn-group">
-            <a href="javascript:void(0)" class="btn btn-modal">README</a>
-            <a href="javascript:void(0)" class="btn btn--brown btn-modal-image" data-image-src="images/work_3.jpg">이미지</a>
+        </li>
+
+        <!-- B -->
+        <li class="card" data-tags="frontend,react,aria,theme,design system,접근성">
+          <div class="media"><img src="images/work_3.jpg" alt="Project B 화면" loading="lazy" /></div>
+          <div class="body">
+            <h3>Project B</h3>
+            <div class="badges"><span class="badge">React</span><span class="badge">ARIA</span></div>
+            <p class="meta"><strong>기능</strong> 다크모드, 키보드 내비게이션, 접근성 테스트<br/>
+              <strong>기술</strong> React, Context, Storybook, Vitest
+            </p>
+            <div class="actions">
+              <a class="btn btn--primary btn-readme" href="javascript:void(0)" data-readme="#readme-b">
+                <span class="material-symbols-outlined">article</span>README
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/geoblo" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">hub</span>GitHub
+              </a>
+              <a class="btn btn--ghost" href="#" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">description</span>Docs
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
+        </li>
+
+        <!-- C -->
+        <li class="card" data-tags="backend,java,spring,jpa,redis,db,api">
+          <div class="media"><img src="images/work_4.jpg" alt="Project C 화면" loading="lazy" /></div>
+          <div class="body">
+            <h3>Project C</h3>
+            <div class="badges"><span class="badge">Java</span><span class="badge">Spring</span><span class="badge">JPA</span></div>
+            <p class="meta"><strong>기능</strong> JWT 보안, 캐시 레이어, 슬로우 쿼리 분석<br/>
+              <strong>기술</strong> Spring Boot, Spring Security, Redis, MariaDB
+            </p>
+            <div class="actions">
+              <a class="btn btn--primary btn-readme" href="javascript:void(0)" data-readme="#readme-c">
+                <span class="material-symbols-outlined">article</span>README
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/geoblo" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">hub</span>GitHub
+              </a>
+              <a class="btn btn--ghost" href="#" target="_blank" rel="noopener">
+                <span class="material-symbols-outlined">api</span>API
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Hidden READMEs -->
+      <article id="readme-a" hidden>
+        <h3>Project A — 상세</h3>
+        <p>React + Spring + AWS. S3 업로드 권한/정책, N+1 이슈를 fetch join으로 해결. CI/CD 자동화.</p>
+      </article>
+      <article id="readme-b" hidden>
+        <h3>Project B — 상세</h3>
+        <p>디자인 토큰과 테마 시스템, 접근성 체크(포커스 트랩/role/aria), 스토리북 문서화.</p>
+      </article>
+      <article id="readme-c" hidden>
+        <h3>Project C — 상세</h3>
+        <p>캐시 전략(Write-Through), 관측성(Prometheus/Grafana), 부하 테스트 p95/p99 기록.</p>
+      </article>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="contact font-en scroll-spy">
+  <!-- ===================== Contact ===================== -->
+  <section id="contact" class="contact">
     <div class="inner">
       <h2 class="title">CONTACT</h2>
-      <div class="contact__info">
-        <ul>
-          <li>
-            <a href="https://github.com/geoblo" target="_blank">github.com/geoblo</a>
-          </li>
-          <li>010-1234-5678</li>
-          <li>geoblo@naver.com</li>
-        </ul>
+      <p class="section-desc">아래 채널로 편하게 연락 주세요.</p>
+      <div class="list">
+        <p><a href="https://github.com/geoblo" target="_blank">github.com/geoblo</a></p>
+        <p>010-1234-5678</p>
+        <p>geoblo@naver.com</p>
       </div>
-      <div class="contact__sns">
-        <ul>
-          <li>
-            <a href="#인스타그램주소" target="_blank">
-              <img src="images/icon/icon_insta.png" alt="인스타그램">
-            </a>
-          </li>
-          <li>
-            <a href="#유튜브주소" target="_blank">
-              <img src="images/icon/icon_youtube.png" alt="유튜브">
-            </a>
-          </li>
-        </ul>
+      <div class="sns" aria-label="Social links">
+        <a href="#인스타그램주소" target="_blank"><img src="images/icon/icon_insta.png" alt="인스타그램" /></a>
+        <a href="#유튜브주소" target="_blank"><img src="images/icon/icon_youtube.png" alt="유튜브" /></a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ===================== Footer ===================== -->
   <footer>
     <div class="inner">
-      <p class="copyright">
-        &copy; <span class="this-year"></span>
-        <span class="font-en">Kin Jae Hyun. All Right Reserved.</span>
-      </p>
+      <p class="copyright">&copy; <span class="this-year"></span> <span class="font-en">Kim Dong Hyun. All Rights Reserved.</span></p>
     </div>
   </footer>
 
-  <!-- MODAL -->
-  <!-- 모달 배경 -->
-  <div id="modal">
-    <!-- 모달 내용 -->
-    <div class="modal-content">
-      <div class="modal-header">
-        README
-        <span class="material-symbols-outlined btn-close">close</span>
+  <!-- ===================== Modal ===================== -->
+  <div id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__panel">
+      <div class="modal__head">
+        <span>README</span>
+        <span class="material-symbols-outlined modal__close" role="button" aria-label="Close">close</span>
       </div>
-      <div class="modal-body">
-        <p>여기에 모달 내용이 들어갑니다.</p>
-      </div>
+      <div class="modal__body">내용을 불러오는 중…</div>
     </div>
   </div>
 
-  <!-- IMAGE MODAL -->
-  <!-- 모달 배경 -->
-  <div id="imageModal">
-    <!-- 모달 내용 -->
-    <div class="modal-content">
-      <div class="modal-header">
-        이미지
-        <span class="material-symbols-outlined btn-close">close</span>
-      </div>
-      <div class="modal-body">
-        <!-- 1픽셀 투명한 GIF -->
-        <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="이미지">
-      </div>
-    </div>
-  </div>
+  <!-- ===================== To Top ===================== -->
+  <button id="toTop" aria-label="Back to top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
 
-  <!-- SCROLL TO TOP -->
-  <div class="toTop">
-    <a href="#">
-      <span id="toTop" class="material-symbols-outlined">arrow_upward</span>
-    </a>
-  </div>
   <script>
-    // ScrollMagic 사용
-// 그 외 scrollreveal
-const spyEls = document.querySelectorAll('section.scroll-spy');
+    // Year
+    document.querySelector('.this-year').textContent = new Date().getFullYear();
 
-// init controller
-const controller = new ScrollMagic.Controller();
+    // Mobile Nav
+    const burger = document.querySelector('.btn-hamburger');
+    const nav = document.querySelector('header nav');
+    burger?.addEventListener('click', ()=> nav.classList.toggle('active'));
+    nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('active')));
 
-spyEls.forEach(function (spyEl) {
-  // create a scene
-  new ScrollMagic.Scene({ // 감시할 장면 추가 및 옵션 지정
-    triggerElement: spyEl, // 보여짐 여부를 감시할 요소를 지정
-    triggerHook: 0.5 // 화면의 50% 지점에서 보여짐 여부 감시(0~1사이 지정)
-  })
-  .setClassToggle(spyEl, 'show') // 요소가 화면에 보이면 show 클래스 추가
-  .addTo(controller); // 컨트롤러에 장면을 할당(필수!)
-});
+    // ToTop
+    const toTop = document.getElementById('toTop');
+    const onScroll = () => {
+      if (window.scrollY > 420) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-// Swiper 사용
-const swiper = new Swiper('.project .swiper', {
-  // 슬라이드 옵션 지정
-  direction: 'horizontal', // 수평 슬라이드
-  loop: true, // 반복 재생 여부, 1 -> 2 -> 3 -> 다시 1
-  // autoplay: { // 자동 재생 여부
-  //   delay: 5000 // 5초마다 슬라이드 바뀜
-  // },
+    // Project search (All only)
+    (function(){
+      const list = Array.from(document.querySelectorAll('#project .card'));
+      const input = document.getElementById('projectSearch');
+      function apply(){
+        const q = (input.value || '').toLowerCase().trim();
+        list.forEach(card=>{
+          const text = (card.dataset.tags || '') + ' ' + card.innerText;
+          const show = !q || text.toLowerCase().includes(q);
+          card.style.display = show ? '' : 'none';
+        });
+      }
+      input?.addEventListener('input', ()=> { clearTimeout(input._t); input._t = setTimeout(apply, 120); });
+      apply();
+    })();
 
-  // 페이지네이션 옵션
-  pagination: {
-    el: '.project .swiper-pagination',
-    clickable: true // 사용자의 페이지네이션 요소 제어 가능 여부
-  },
+    // README Modal
+    (function(){
+      const modal = document.getElementById('modal');
+      const body = modal.querySelector('.modal__body');
+      const close = modal.querySelector('.modal__close');
 
-  // 이전/다음 슬라이드 버튼 옵션
-  navigation: {
-    nextEl: '.project .swiper-button-next',
-    prevEl: '.project .swiper-button-prev',
-  },
-});
+      document.querySelectorAll('.btn-readme').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const sel = btn.getAttribute('data-readme');
+          const src = sel ? document.querySelector(sel) : null;
+          body.innerHTML = src ? src.innerHTML : '<p>README 내용을 준비 중입니다.</p>';
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden','false');
+        });
+      });
 
-// 모달창 띄우기
-const modal = document.querySelector('#modal');
-const modalBtn = document.querySelector('.project .btn-modal');
-const closeBtn = document.querySelector('#modal .btn-close');
-
-const imageModal = document.querySelector('#imageModal');
-const imageModalBtnList = document.querySelectorAll('.project .btn-modal-image');
-const imageCloseBtn = document.querySelector('#imageModal .btn-close');
-const imageEl = document.querySelector('#imageModal img');
-
-// Quiz: modalBtn 누르면 모달창이 뜨고 closeBtn 누르면 닫히도록 만들기
-modalBtn.addEventListener('click', function () {
-  modal.style.display = 'flex';
-  // modal.classList.add('show');
-});
-closeBtn.addEventListener('click', function () {
-  modal.style.display = 'none';
-  // modal.classList.remove('show');
-});
-
-imageModalBtnList.forEach(function (imageModalBtn) {
-  imageModalBtn.addEventListener('click', function () {
-    imageEl.src = imageModalBtn.dataset.imageSrc;
-    imageModal.style.display = 'flex';
-  });
-});
-imageCloseBtn.addEventListener('click', function () {
-  imageModal.style.display = 'none';
-});
-
-// 모달 바깥 영역 클릭 시 닫기
-modal.addEventListener('click', function (e) { // e: 이벤트 발생 시 이벤트 객체가 전달됨
-  console.log(e.target); // 현재 이벤트가 발생한 대상(사용자가 실제 클릭한 가장 안쪽 요소)
-  console.log(e.currentTarget); // 이벤트가 바인딩된 요소(여기선 modal)
-  
-  if (e.target === e.currentTarget) { // 이벤트 리스너가 붙은 요소 그자체를 클릭한 경우만 실행
-    modal.style.display = 'none';
-  }
-});
-
-imageModal.addEventListener('click', function (e) {
-  if (e.target === e.currentTarget) { 
-    imageModal.style.display = 'none';
-  }
-});
-
-// esc 키로 닫기
-document.addEventListener('keydown',function (e) {
-  if (e.key === 'Escape') {
-    modal.style.display = 'none';
-    imageModal.style.display = 'none';
-  }
-});
-
-// 현재 연도 표시
-// 날짜 정보를 가진 JS의 Date 객체를 활용
-// console.log(new Date().getFullYear());
-const thisYear = document.querySelector('.this-year');
-thisYear.textContent = new Date().getFullYear();
-
-// 페이지 최상단 이동 
-const toTopEl = document.querySelector('#toTop');
-const visualSpanEls = document.querySelectorAll('.animate-flash');
-
-// 페이지 스크롤 이벤트 감지를 추가!
-// 브라우저는 문서 젠체의 스크롤을 window 기준으로 처리(doccument에 붙이면 일부 브라우저에서는 동작 안 함)
-// window : 브라우저 창 객체
-window.addEventListener('scroll',function () {
-  // console.log(window.scrollY); // y축 스크롤 위치
-
-  // 페이지 스크롤 위치가 
-  // 500px을 넘으면 요소를 보이고
-  // 500px을 넘지 않으면 요소 숨기기!
-  if (window.scrollY > 500) {
-    toTopEl.style.transform = 'translateX(0)';
-    toTopEl.style.opacity = '1';
-    
-    // visual 섹션 애니메이션 클래스 빼기
-    visualSpanEls.forEach(function (visualSpanEl) {
-      visualSpanEl.classList.remove('animate-flash');
-    });
-  } else {
-    toTopEl.style.transform = 'translateX(100px)';
-    toTopEl.style.opacity = '0';
-
-    // visual 섹션 애니메이션 클래스 넣기
-    visualSpanEls.forEach(function (visualSpanEl) {
-      visualSpanEl.classList.add('animate-flash');
-    });
-  }
-});
-
-  // 모바일용 메뉴
-const hamburgerBtn = document.querySelector('.btn-hamburger');
-const navEl = document.querySelector('header nav');
-const aEls = document.querySelectorAll('header nav ul li a');
-
-hamburgerBtn.addEventListener('click', function () {
-  navEl.classList.toggle('active');
-});
-
-aEls.forEach(function (aEl) {
-  aEl.addEventListener('click', function () {
-    navEl.classList.remove('active');
-  });
-});
+      const hide = ()=>{
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden','true');
+      };
+      close.addEventListener('click', hide);
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) hide(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') hide(); });
+    })();
   </script>
 </body>
 </html>
