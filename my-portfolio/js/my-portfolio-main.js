@@ -16,22 +16,6 @@ document.querySelector('.this-year').textContent = new Date().getFullYear();
     onScroll();
     toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    // Project search (All only)
-    (function(){
-      const list = Array.from(document.querySelectorAll('#project .card'));
-      const input = document.getElementById('projectSearch');
-      function apply(){
-        const q = (input.value || '').toLowerCase().trim();
-        list.forEach(card=>{
-          const text = (card.dataset.tags || '') + ' ' + card.innerText;
-          const show = !q || text.toLowerCase().includes(q);
-          card.style.display = show ? '' : 'none';
-        });
-      }
-      input?.addEventListener('input', ()=> { clearTimeout(input._t); input._t = setTimeout(apply, 120); });
-      apply();
-    })();
-
     // README Modal
     (function(){
       const modal = document.getElementById('modal');

@@ -176,12 +176,11 @@
     /* ===================== Projects ===================== */
     .project{ background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%); }
     .project__controls{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
-    .only-all .chip{ cursor:default; }
     .search{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:12px; background:#fff; }
     .search input{ border:0; outline:none; min-width:220px; background:transparent; color:#2d415c; }
     .search input::placeholder{ color:#7a96bd; }
 
-    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top: 100px;}
     @media (max-width:1023px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
     @media (max-width:639px){ .grid{ grid-template-columns: 1fr; } }
 
